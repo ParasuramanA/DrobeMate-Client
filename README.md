@@ -41,11 +41,6 @@ It helps users organize their clothing, plan daily outfits, and get smart sugges
 
 ## 🚀 Getting Started
 
-### 🔧 Prerequisites
-- Python 3.9 or higher  
-- PostgreSQL (optional for initial setup)  
-- pip package manager  
-
 ### 📁 Project Setup
 
 ```bash
