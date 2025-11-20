@@ -1,13 +1,49 @@
+"use client"
 import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
+import { useState } from 'react'
+
+import api from '@/utils/api'
+
+interface users {
+    first_name: string,
+    last_name: string,
+    email: string,
+    password: string
+}
 
 export default function SignUpPage() {
+    const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP as string;
+
+    const [SignUpUserData, setSignUpUserData] = useState<users>({
+        first_name: "John",
+        last_name: "Doe",
+        email: "example@gmail.com",
+        password: "Example@2002"
+    })
+    const handleChange = (e: React.ChangeEvent) => {
+        const { name, value } = (e.target as HTMLInputElement)
+        setSignUpUserData({ ...SignUpUserData, [name]: value })
+    }
+
+    const mutation = useMutation({
+        mutationFn: (signUpUser:users) => {
+            return api.post(SIGNUP_URL, signUpUser)
+        }
+    })
+
+
+
     return (
         <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-10 dark:bg-transparent">
-            <form
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                mutation.mutate(SignUpUserData);
+            }}
                 className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
                 <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
                     <div className="text-center">
@@ -34,6 +70,8 @@ export default function SignUpPage() {
                                     required
                                     name="first_name"
                                     id="firstname"
+                                    value={SignUpUserData.first_name}
+                                    onChange={handleChange}
                                 />
                             </div>
                             <div className="space-y-2">
@@ -47,6 +85,9 @@ export default function SignUpPage() {
                                     required
                                     name="last_name"
                                     id="lastname"
+                                    value={SignUpUserData.last_name}
+                                    onChange={handleChange}
+
                                 />
                             </div>
                         </div>
@@ -62,6 +103,9 @@ export default function SignUpPage() {
                                 required
                                 name="email"
                                 id="email"
+                                value={SignUpUserData.email}
+                                onChange={handleChange}
+
                             />
                         </div>
 
@@ -89,6 +133,9 @@ export default function SignUpPage() {
                                 name="pwd"
                                 id="pwd"
                                 className="input sz-md variant-mixed"
+                                value={SignUpUserData.password}
+                                onChange={handleChange}
+
                             />
                         </div>
 
