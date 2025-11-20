@@ -50,21 +50,14 @@ It helps users organize their clothing, plan daily outfits, and get smart sugges
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Gokul-Peace/DrobeMate.git
-cd drobemate
+git clone https://github.com/ParasuramanA/DrobeMate-Client.git
+cd DrobeMate-Client
 
-# 2. Create virtual environment
-python3 -m venv drobemateenv
+# 2.Install the package
+npm install
 
-# 3. Activate the environment
-source drobemateenv/bin/activate   # Mac/Linux
-drobemateenv\Scripts\activate      # Windows
+#3. Start development server
+npm run dev
 
-# 4. Install dependencies
-pip install django
 
-# 5. Run migrations (after adding models)
-python3 manage.py migrate
-
-# 6. Start development server
-python3 manage.py runserver
+#Note : node version above 20 and npm version 10
