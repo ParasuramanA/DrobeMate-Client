@@ -29,13 +29,13 @@ It helps users organize their clothing, plan daily outfits, and get smart sugges
 
 ## ⚙️ Tech Stack
 
-| Tech        | Description                    |
-|------------|--------------------------------|
-| Python 3.9+ | Backend Language               |
-| Django      | Web Framework                   |
-| PostgreSQL  | Database                        |
-| Next.js     | Frontend (handled by teammate)  |
-| HTML/CSS    | Basic template testing (optional) |
+| Tech        | Description                           |
+|------------ |--------------------------------       |
+| Python 3.9+ | Backend Language (handled by teammate)|
+| Django      | Web Framework                         |
+| PostgreSQL  | Database                              |
+| Next.js     | Frontend                              |
+| HTML/CSS    | Basic template testing (optional)     |
 
 ---
 
