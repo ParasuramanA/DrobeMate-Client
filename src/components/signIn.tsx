@@ -1,49 +1,14 @@
-"use client"
 import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useMutation } from '@tanstack/react-query'
 import Link from 'next/link'
-import { useState } from 'react'
 
-import api from '@/utils/api'
-
-interface users {
-    first_name: string,
-    last_name: string,
-    email: string,
-    password: string
-}
-
-export default function SignUpPage() {
-    const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP as string;
-
-    const [SignUpUserData, setSignUpUserData] = useState<users>({
-        first_name: "John",
-        last_name: "Doe",
-        email: "example@gmail.com",
-        password: "Example@2002"
-    })
-    const handleChange = (e: React.ChangeEvent) => {
-        const { name, value } = (e.target as HTMLInputElement)
-        setSignUpUserData({ ...SignUpUserData, [name]: value })
-    }
-
-    const mutation = useMutation({
-        mutationFn: (signUpUser:users) => {
-            return api.post(SIGNUP_URL, signUpUser)
-        }
-    })
-
-
-
+export default function SingInPage() {
     return (
-        <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-10 dark:bg-transparent">
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                mutation.mutate(SignUpUserData);
-            }}
+        <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
+            <form
+                action=""
                 className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
                 <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
                     <div className="text-center">
@@ -51,61 +16,24 @@ export default function SignUpPage() {
                             href="/"
                             aria-label="go home"
                             className="mx-auto block w-fit">
-                            <LogoIcon />
+                            <LogoIcon className='w-10'/>
                         </Link>
-                        <h1 className="mb-1 mt-4 text-xl font-semibold">Create a DrobeMate Account</h1>
-                        <p className="text-sm">Welcome! Create an account to get started</p>
+                        <h1 className="mb-1 mt-4 text-xl font-semibold">Sign In to DrobeMate Account</h1>
+                        <p className="text-sm">Welcome back! Sign in to continue</p>
                     </div>
 
                     <div className="mt-6 space-y-6">
-                        <div className="grid grid-cols-2 gap-3">
-                            <div className="space-y-2">
-                                <Label
-                                    htmlFor="first_name"
-                                    className="block text-sm">
-                                    Firstname
-                                </Label>
-                                <Input
-                                    type="text"
-                                    required
-                                    name="first_name"
-                                    id="firstname"
-                                    value={SignUpUserData.first_name}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <Label
-                                    htmlFor="last_name"
-                                    className="block text-sm">
-                                    Lastname
-                                </Label>
-                                <Input
-                                    type="text"
-                                    required
-                                    name="last_name"
-                                    id="lastname"
-                                    value={SignUpUserData.last_name}
-                                    onChange={handleChange}
-
-                                />
-                            </div>
-                        </div>
-
                         <div className="space-y-2">
                             <Label
                                 htmlFor="email"
                                 className="block text-sm">
-                                Email
+                                Username
                             </Label>
                             <Input
                                 type="email"
                                 required
                                 name="email"
                                 id="email"
-                                value={SignUpUserData.email}
-                                onChange={handleChange}
-
                             />
                         </div>
 
@@ -121,7 +49,7 @@ export default function SignUpPage() {
                                     variant="link"
                                     size="sm">
                                     <Link
-                                        href="#"
+                                         href="/forgot-password"
                                         className="link intent-info variant-ghost text-sm">
                                         Forgot your Password ?
                                     </Link>
@@ -133,13 +61,10 @@ export default function SignUpPage() {
                                 name="pwd"
                                 id="pwd"
                                 className="input sz-md variant-mixed"
-                                value={SignUpUserData.password}
-                                onChange={handleChange}
-
                             />
                         </div>
 
-                        <Button className="w-full">Sign Up</Button>
+                        <Button className="w-full">Sign In</Button>
                     </div>
 
                     <div className="my-6 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
@@ -148,7 +73,7 @@ export default function SignUpPage() {
                         <hr className="border-dashed" />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 gap-3">
                         <Button
                             type="button"
                             variant="outline">
@@ -172,40 +97,18 @@ export default function SignUpPage() {
                             </svg>
                             <span>Google</span>
                         </Button>
-                        <Button
-                            type="button"
-                            variant="outline">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 256 256">
-                                <path
-                                    fill="#f1511b"
-                                    d="M121.666 121.666H0V0h121.666z"></path>
-                                <path
-                                    fill="#80cc28"
-                                    d="M256 121.666H134.335V0H256z"></path>
-                                <path
-                                    fill="#00adef"
-                                    d="M121.663 256.002H0V134.336h121.663z"></path>
-                                <path
-                                    fill="#fbbc09"
-                                    d="M256 256.002H134.335V134.336H256z"></path>
-                            </svg>
-                            <span>Microsoft</span>
-                        </Button>
+                        
                     </div>
                 </div>
 
                 <div className="p-3">
                     <p className="text-accent-foreground text-center text-sm">
-                        Have an account ?
+                        Don't have an account ?
                         <Button
                             asChild
                             variant="link"
                             className="px-2">
-                            <Link href="#">Sign In</Link>
+                            <Link href="/signup">Create account</Link>
                         </Button>
                     </p>
                 </div>

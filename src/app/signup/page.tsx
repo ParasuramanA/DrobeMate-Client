@@ -1,7 +1,6 @@
-import SignUpPage from '@/components/sign-up'
-import React from 'react'
+import SignUpPage from '@/components/signUp'
 
-export default function Login() {
+export default function signUpPage() {
   return (
     <SignUpPage />
   )
