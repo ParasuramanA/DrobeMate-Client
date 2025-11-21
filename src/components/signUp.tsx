@@ -20,10 +20,10 @@ export default function SignUpPage() {
     const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP as string;
 
     const [SignUpUserData, setSignUpUserData] = useState<users>({
-        first_name: "parasuraman",
-        last_name: "annadurai",
-        email: "example@gmail.com",
-        password: "Example@2002"
+        first_name: "gokul",
+        last_name: "peace",
+        email: "gokul@gmail.com",
+        password: "test@1234"
     })
     const handleChange = (e: React.ChangeEvent) => {
         const { name, value } = (e.target as HTMLInputElement)
