@@ -48,7 +48,7 @@ export default function SignUpPage() {
                 <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
                     <div className="text-center">
                         <Link
-                            href="/"
+                            href="/signup"
                             aria-label="go home"
                             className="mx-auto block w-fit">
                             <LogoIcon  className='w-10'/>
