@@ -1,14 +1,45 @@
+"use client"
 import { LogoIcon } from '@/components/logo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import api from '@/utils/api'
+
+interface user {
+    email: string,
+    password: string
+}
 
 export default function SingInPage() {
+    const SIGNIN_URL = process.env.NEXT_PUBLIC_SIGNIN as string;
+
+    const [signInUser, setSignUser] = useState<user>({
+            email: "gokul@gmail.com",
+            password: "test@1234"
+    })
+
+    const handleChange = (e: React.ChangeEvent) => {
+        const { name, value } = (e.target as HTMLInputElement)
+        setSignUser({ ...signInUser, [name]: value })
+    }
+
+    const mutation = useMutation({
+        mutationFn: (signUpUser: user) => {
+            return api.post(SIGNIN_URL, signUpUser)
+        }
+    })
+
     return (
         <section className="flex min-h-screen bg-zinc-50 px-4 py-16 md:py-32 dark:bg-transparent">
             <form
                 action=""
+                onSubmit={(e)=>{
+                    e.preventDefault();
+                    mutation.mutate(signInUser);
+                }}
                 className="bg-muted m-auto h-fit w-full max-w-sm overflow-hidden rounded-[calc(var(--radius)+.125rem)] border shadow-md shadow-zinc-950/5 dark:[--color-muted:var(--color-zinc-900)]">
                 <div className="bg-card -m-px rounded-[calc(var(--radius)+.125rem)] border p-8 pb-6">
                     <div className="text-center">
@@ -16,7 +47,7 @@ export default function SingInPage() {
                             href="/signin"
                             aria-label="go home"
                             className="mx-auto block w-fit">
-                            <LogoIcon className='w-10'/>
+                            <LogoIcon className='w-10' />
                         </Link>
                         <h1 className="mb-1 mt-4 text-xl font-semibold">Sign In to DrobeMate Account</h1>
                         <p className="text-sm">Welcome back! Sign in to continue</p>
@@ -34,6 +65,8 @@ export default function SingInPage() {
                                 required
                                 name="email"
                                 id="email"
+                                value={signInUser.email}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -49,7 +82,7 @@ export default function SingInPage() {
                                     variant="link"
                                     size="sm">
                                     <Link
-                                         href="/forgot-password"
+                                        href="/forgot-password"
                                         className="link intent-info variant-ghost text-sm">
                                         Forgot your Password ?
                                     </Link>
@@ -61,6 +94,8 @@ export default function SingInPage() {
                                 name="pwd"
                                 id="pwd"
                                 className="input sz-md variant-mixed"
+                                value={signInUser.password}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -97,7 +132,7 @@ export default function SingInPage() {
                             </svg>
                             <span>Google</span>
                         </Button>
-                        
+
                     </div>
                 </div>
 
