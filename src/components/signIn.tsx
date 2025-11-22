@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import api from '@/utils/api'
 
 interface user {
@@ -14,8 +15,8 @@ interface user {
 }
 
 export default function SingInPage() {
+    const router = useRouter();
     const SIGNIN_URL = process.env.NEXT_PUBLIC_SIGNIN as string;
-
     const [signInUser, setSignUser] = useState<user>({
             email: "gokul@gmail.com",
             password: "test@1234"
@@ -29,6 +30,10 @@ export default function SingInPage() {
     const mutation = useMutation({
         mutationFn: (signUpUser: user) => {
             return api.post(SIGNIN_URL, signUpUser)
+        },
+        onSuccess:(data)=>{
+            localStorage.setItem("token",data?.data?.data?.token)
+            router.replace("/home")
         }
     })
 

@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useMutation } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useState } from 'react'
 import api from '@/utils/api'
@@ -16,9 +17,8 @@ interface users {
 }
 
 export default function SignUpPage() {
-
+    const router = useRouter();
     const SIGNUP_URL = process.env.NEXT_PUBLIC_SIGNUP as string;
-
     const [SignUpUserData, setSignUpUserData] = useState<users>({
         first_name: "gokul",
         last_name: "peace",
@@ -33,8 +33,12 @@ export default function SignUpPage() {
     const mutation = useMutation({
         mutationFn: (signUpUser:users) => {
             return api.post(SIGNUP_URL, signUpUser)
+        },
+        onSuccess:()=>{
+            router.replace("/home")
         }
     })
+    
 
 
 
